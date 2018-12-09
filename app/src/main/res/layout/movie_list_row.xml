@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.android.godueol.boostcamp.model.MovieInfo" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/movie_img"
+            android:layout_width="130dp"
+            android:layout_height="260dp"
+            app:error="@{@drawable/ic_launcher_background}"
+            app:imgUrl="@{item.image}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_height="100dp"
+            tools:layout_width="50dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/movie_title_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{item.title}"
+            app:layout_constraintStart_toEndOf="@+id/movie_img"
+            app:layout_constraintTop_toTopOf="@+id/movie_img"
+            tools:text="TITLE" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/movie_rating_img"
+            android:layout_width="99dp"
+            android:layout_height="23dp"
+            app:layout_constraintStart_toEndOf="@+id/movie_img"
+            app:layout_constraintTop_toBottomOf="@+id/movie_title_txt"
+            tools:src="@drawable/ic_launcher_foreground" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/movie_year_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/movie_img"
+            app:layout_constraintTop_toBottomOf="@+id/movie_rating_img"
+            tools:text="@{item.pubDate}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/movie_director_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/movie_img"
+            app:layout_constraintTop_toBottomOf="@+id/movie_year_txt"
+            tools:text="@{item.director}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/movie_actors_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/movie_img"
+            app:layout_constraintTop_toBottomOf="@+id/movie_director_txt"
+            tools:text="@{item.actor}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
