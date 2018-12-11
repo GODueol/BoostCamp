@@ -22,14 +22,18 @@ class DataBindingUtils {
             for(item in itemList){
                 Log.w("item",item.toString())
             }
-            recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
-            recyclerView.adapter = RecyclerViewAdapter()
 
-            recyclerView.setItemViewCacheSize(100)
-            recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL))
+            if(recyclerView.layoutManager == null) {
+                    recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
+                    recyclerView.setItemViewCacheSize(100)
+                    recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL))
+            }
+            if(recyclerView.adapter  == null){
+                recyclerView.adapter = RecyclerViewAdapter()
+            }
 
-            (recyclerView.adapter as? RecyclerViewAdapter).let {
-                it?.itemList = itemList
+            (recyclerView.adapter as? RecyclerViewAdapter)?.apply {
+                addItems(itemList)
             }
         }
 

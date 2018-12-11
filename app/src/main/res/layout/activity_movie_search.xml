@@ -28,7 +28,7 @@
             android:id="@+id/search_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{vm::onSearch}"
+            android:onClick="@{(v) -> vm.onSearch(v,vm.searchword)}"
             android:text="@string/search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

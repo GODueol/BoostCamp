@@ -1,5 +1,6 @@
 package com.android.godueol.boostcamp
 import android.os.Bundle
+import android.widget.AdapterView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.godueol.boostcamp.adapter.RecyclerViewAdapter
