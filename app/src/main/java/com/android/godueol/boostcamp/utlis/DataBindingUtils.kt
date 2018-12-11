@@ -4,17 +4,13 @@ import android.graphics.drawable.Drawable
 import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.godueol.boostcamp.adapter.RecyclerViewAdapter
 import com.android.godueol.boostcamp.model.MovieInfo
 import com.bumptech.glide.Glide
-import androidx.recyclerview.widget.DividerItemDecoration
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
-
-
-
 
 
 class DataBindingUtils {
@@ -22,8 +18,10 @@ class DataBindingUtils {
         @JvmStatic
         @BindingAdapter("ListItem")
         fun bindListAdapter(recyclerView: RecyclerView, itemList: List<MovieInfo>) {
-            Log.d("test",itemList.toString())
-
+            Log.d("test", itemList.toString())
+            for(item in itemList){
+                Log.w("item",item.toString())
+            }
             recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
             recyclerView.adapter = RecyclerViewAdapter()
 
@@ -36,15 +34,16 @@ class DataBindingUtils {
         }
 
 
-
         @JvmStatic
-        @BindingAdapter("bind:imgUrl","bind:error")
-        fun bindImage(imageView: ImageView, url:String, error:Drawable){
+        @BindingAdapter("bind:imgUrl", "bind:error")
+        fun bindImage(imageView: ImageView, url: String, error: Drawable) {
+            val requestOption = RequestOptions()
+            requestOption.error(error)
 
             Glide.with(imageView.context)
-                    .load(url)
-                    .into(imageView)
-                    .onLoadFailed(error)
+                .load(url)
+                .apply(requestOption)
+                .into(imageView)
         }
     }
 
