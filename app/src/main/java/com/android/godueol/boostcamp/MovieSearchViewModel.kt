@@ -10,12 +10,12 @@ import androidx.databinding.ObservableArrayList
 import com.android.godueol.boostcamp.model.MovieInfo
 import com.android.godueol.boostcamp.repository.MovieAPI
 import com.android.godueol.boostcamp.utlis.RxBinder
-import com.android.godueol.boostcamp.utlis.threadIoToMain
+import com.android.godueol.boostcamp.utlis.threadIoToComputation
 import com.google.gson.Gson
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 import org.json.JSONObject
 import java.net.URLEncoder
 import java.util.concurrent.TimeUnit
@@ -29,7 +29,7 @@ class MovieSearchViewModel(private val rxBinder: RxBinder) {
     fun requestMovies(searchWord: String) {
         MovieAPI.instance!!.mAPI
             .getMovieList(URLEncoder.encode(searchWord, "UTF-8"))
-            .compose(threadIoToMain())
+            .compose(threadIoToComputation())
             .map {
                 it.body()?.string()
             }
@@ -65,20 +65,8 @@ class MovieSearchViewModel(private val rxBinder: RxBinder) {
         @SuppressLint("CheckResult")
         override fun afterTextChanged(s: Editable) {
 
-            if (s.isEmpty() || s.length < 2)
+            if (s.isNullOrEmpty() || s.length < 2)
                 return
-
-            Observable.create(ObservableOnSubscribe<String> { emitter ->
-                emitter.onNext(s.toString()) // skip
-            }).debounce(1500, TimeUnit.MILLISECONDS)
-                // Run on a background thread
-                .subscribeOn(Schedulers.io())
-                // Be notified on the main thread
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    items.clear()
-                    requestMovies(it)
-                }
         }
     }
 

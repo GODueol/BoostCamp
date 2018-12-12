@@ -5,9 +5,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 
-fun <T>threadIoToMain(): ObservableTransformer<T, T>{
+fun <T>threadIoToComputation(): ObservableTransformer<T, T>{
     return ObservableTransformer { upstream ->
         upstream.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(Schedulers.computation())
     }
 }
