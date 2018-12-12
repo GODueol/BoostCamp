@@ -12,6 +12,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/item_Layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -43,13 +44,23 @@
                 app:layout_constraintTop_toTopOf="@+id/movie_img"
                 tools:text="TITLE" app:layout_constraintEnd_toEndOf="parent"/>
 
-        <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/movie_rating_img"
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/movie_rating_bar"
                 android:layout_width="100dp"
                 android:layout_height="23dp"
+                android:background="@color/colorPrimary"
                 app:layout_constraintStart_toEndOf="@+id/movie_img"
                 app:layout_constraintTop_toBottomOf="@+id/movie_title_txt"
                 tools:src="@drawable/ic_launcher_foreground"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/movie_rating_txt"
+                android:layout_width="100dp"
+                android:layout_height="23dp"
+                tools:text="7.77"
+                app:layout_constraintStart_toEndOf="@+id/movie_rating_bar"
+                app:layout_constraintTop_toBottomOf="@+id/movie_title_txt"
+                tools:src="@drawable/ic_launcher_foreground" />
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/movie_year_txt"
@@ -60,7 +71,7 @@
                 android:visibility="@{item.pubDate != null ? View.VISIBLE : View.GONE}"
                 tools:text="1991"
                 app:layout_constraintStart_toEndOf="@+id/movie_img"
-                app:layout_constraintTop_toBottomOf="@+id/movie_rating_img"
+                app:layout_constraintTop_toBottomOf="@+id/movie_rating_bar"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
         <androidx.appcompat.widget.AppCompatTextView
