@@ -37,6 +37,7 @@ class DataBindingUtils {
             }
 
             (recyclerView.adapter as? RecyclerViewAdapter)?.apply {
+                clear()
                 addItems(itemList)
             }
         }

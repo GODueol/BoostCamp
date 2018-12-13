@@ -38,5 +38,11 @@ class RecyclerViewAdapter : RecyclerView.Adapter<BaseViewHolder<MovieListRowBind
         notifyItemInserted(beforeSize)
     }
 
+    fun clear(){
+        val size = itemList.size
+        itemList.clear()
+       notifyItemRangeRemoved(0,size)
+    }
+
 
 }

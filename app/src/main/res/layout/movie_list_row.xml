@@ -27,7 +27,7 @@
                 android:layout_marginLeft="8dp"
                 app:error="@{@drawable/no_image}"
                 app:imgUrl="@{item.image}"
-                android:scaleType="fitStart"
+                android:scaleType="fitEnd"
                 android:adjustViewBounds="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -46,18 +46,23 @@
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/movie_rating_border"
-                style="@style/MovieRatingBar"
+                android:layout_width="102dp"
+                android:layout_height="12dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
                 android:background="@drawable/border"
                 app:layout_constraintStart_toEndOf="@+id/movie_img"
                 app:layout_constraintTop_toBottomOf="@+id/movie_title_txt"/>
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/movie_rating_bar"
-                style="@style/MovieRatingBar"
+                android:layout_marginLeft="1dp"
+                android:layout_height="10dp"
                 android:layout_width="0dp"
                 app:drawBar="@{item.userRating}"
-                app:layout_constraintStart_toEndOf="@+id/movie_img"
-                app:layout_constraintTop_toBottomOf="@+id/movie_title_txt"/>
+                app:layout_constraintStart_toStartOf="@+id/movie_rating_border"
+                app:layout_constraintBottom_toBottomOf="@+id/movie_rating_border"
+                app:layout_constraintTop_toTopOf="@+id/movie_rating_border"/>
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/movie_rating_txt"
