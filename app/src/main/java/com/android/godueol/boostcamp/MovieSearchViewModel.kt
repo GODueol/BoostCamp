@@ -13,9 +13,7 @@ import com.android.godueol.boostcamp.utlis.RxBinder
 import com.android.godueol.boostcamp.utlis.threadIoToComputation
 import com.google.gson.Gson
 import io.reactivex.Observable
-import io.reactivex.ObservableOnSubscribe
 import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.PublishSubject
 import org.json.JSONObject
 import java.net.URLEncoder
 import java.util.concurrent.TimeUnit
@@ -24,6 +22,7 @@ import java.util.concurrent.TimeUnit
 class MovieSearchViewModel(private val rxBinder: RxBinder) {
     var items = ObservableArrayList<MovieInfo>()
     var searchword: String? = null
+    var LastWord: String? = null
 
     @SuppressLint("CheckResult")
     fun requestMovies(searchWord: String) {
@@ -48,11 +47,19 @@ class MovieSearchViewModel(private val rxBinder: RxBinder) {
     }
 
     fun onSearch(v: View, word: String?) {
-        word ?: run {
-            Toast.makeText(v.context,"검색어를 입력해 주세요.",Toast.LENGTH_SHORT).show()
-            return
-        }
-        requestMovies(word)
+        Observable.just(word)
+            .filter {
+                if (!it.isNullOrEmpty() && it.length > 2) {
+                    true
+                } else {
+                    Toast.makeText(v.context, "검색어를 입력해 주세요.", Toast.LENGTH_SHORT).show()
+                    false
+                }
+            }
+            .debounce(50, TimeUnit.MILLISECONDS)
+            .subscribe {
+                requestMovies(it!!)
+            },
     }
 
     var watcher: TextWatcher = object : TextWatcher {
@@ -65,8 +72,20 @@ class MovieSearchViewModel(private val rxBinder: RxBinder) {
         @SuppressLint("CheckResult")
         override fun afterTextChanged(s: Editable) {
 
-            if (s.isNullOrEmpty() || s.length < 2)
-                return
+
+            val observable = Observable.create<String> { emitter ->
+                emitter.onNext(s.toString())
+            }
+
+
+            observable.debounce(200, TimeUnit.MILLISECONDS, Schedulers.computation())
+                .filter {
+                    it.isNotEmpty() && it.length > 2
+                }
+                .delay(1000, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    requestMovies(it!!)
+                }
         }
     }
 
