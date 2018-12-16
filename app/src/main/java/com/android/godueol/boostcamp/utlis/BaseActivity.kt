@@ -9,8 +9,8 @@ abstract class BaseActivity : AppCompatActivity(){
     val rxBinder = RxBinder()
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
         rxBinder.apply(Event.OnCreate)
+        super.onCreate(savedInstanceState, persistentState)
     }
 
     override fun onStart() {
@@ -26,7 +26,7 @@ abstract class BaseActivity : AppCompatActivity(){
     override fun onPause() {
         rxBinder.apply(Event.OnPause)
         super.onPause()
-    }
+       }
 
     override fun onStop() {
         rxBinder.apply(Event.OnStop)

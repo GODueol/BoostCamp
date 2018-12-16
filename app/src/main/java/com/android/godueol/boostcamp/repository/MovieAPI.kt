@@ -25,8 +25,7 @@ class MovieAPI {
             .build()
         mAPI = mRetrofit.create(API::class.java)
     }
-//wEPUsnDZSbPUaQ3asew0
-    //ctaeIzO3TL
+
     companion object {
         @Volatile
         private var mInstance: MovieAPI? = null
@@ -43,6 +42,6 @@ class MovieAPI {
     interface API {
         @GET("v1/search/movie.json")
         @Headers("X-Naver-Client-Id:wEPUsnDZSbPUaQ3asew0", "X-Naver-Client-Secret:ctaeIzO3TL")
-        fun getMovieList(@Query("query") str:String): Observable<Response<ResponseBody>>
+        fun getMovieList(@Query("query") str:String,@Query("display") display:Int,@Query("start") start:Int): Observable<Response<ResponseBody>>
     }
 }

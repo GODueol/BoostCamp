@@ -1,26 +1,23 @@
 package com.android.godueol.boostcamp.utlis
 
 import android.graphics.drawable.Drawable
-import android.util.Log
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.godueol.boostcamp.R
 import com.android.godueol.boostcamp.adapter.RecyclerViewAdapter
-import com.android.godueol.boostcamp.model.MovieInfo
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
-
 class DataBindingUtils {
     companion object {
+
         @JvmStatic
-        @BindingAdapter("ListItem")
-        fun bindListAdapter(recyclerView: RecyclerView, itemList: List<MovieInfo>) {
+        @BindingAdapter("adapter")
+        fun bindListAdapter(recyclerView: RecyclerView, adatapter: RecyclerViewAdapter) {
             if (recyclerView.layoutManager == null) {
                 recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
                 recyclerView.setItemViewCacheSize(100)
@@ -29,28 +26,18 @@ class DataBindingUtils {
             }
 
             if (recyclerView.adapter == null) {
-                recyclerView.adapter = RecyclerViewAdapter()
-            }
-
-            if (itemList.isEmpty()) {
-                return
-            }
-
-            (recyclerView.adapter as? RecyclerViewAdapter)?.apply {
-                clear()
-                addItems(itemList)
+                recyclerView.adapter = adatapter
             }
         }
-
 
         @JvmStatic
         @BindingAdapter("imgUrl", "error")
         fun bindImage(imageView: AppCompatImageView, url: String, error: Drawable) {
             val requestOption = RequestOptions().placeholder(error).error(error)
             Glide.with(imageView.context)
-                .load(url)
-                .apply(requestOption)
-                .into(imageView)
+                    .load(url)
+                    .apply(requestOption)
+                    .into(imageView)
         }
 
         @JvmStatic
@@ -73,6 +60,25 @@ class DataBindingUtils {
             textView.setBackgroundResource(color)
             textView.width = dp
 
+        }
+
+
+        @JvmStatic
+        @BindingAdapter("onScrollStateChanged")
+        fun setOnScrollListener(recyclerView: RecyclerView, scrollStateChanged: OnScrollStateChanged?) {
+            if (scrollStateChanged == null) {
+                return
+            }
+
+            recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    scrollStateChanged.onScrollStateChanged(recyclerView, newState)
+                }
+            })
+        }
+
+        interface OnScrollStateChanged {
+            fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int)
         }
     }
 

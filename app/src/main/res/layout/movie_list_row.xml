@@ -1,114 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
-
+        <import type="android.view.View" />
         <variable
-                name="item"
-                type="com.android.godueol.boostcamp.model.MovieInfo"/>
+            name="item"
+            type="com.android.godueol.boostcamp.model.MovieInfo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/item_Layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="?android:attr/selectableItemBackground">
+        android:id="@+id/item_Layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/movie_img"
-                android:layout_width="100dp"
-                android:layout_height="133dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="8dp"
-                app:error="@{@drawable/no_image}"
-                app:imgUrl="@{item.image}"
-                android:scaleType="fitEnd"
-                android:adjustViewBounds="true"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+            android:id="@+id/movie_img"
+            android:layout_width="100dp"
+            android:layout_height="133dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitStart"
+            app:error="@{@drawable/no_image}"
+            app:imgUrl="@{item.image}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/movie_title_txt"
-                style="@style/MovieTextView"
-                android:textStyle="bold"
-                android:text="@{item.title}"
-                android:visibility="@{item.title != null ? View.VISIBLE : View.GONE}"
-                app:layout_constraintStart_toEndOf="@+id/movie_img"
-                app:layout_constraintTop_toTopOf="@+id/movie_img"
-                tools:text="TITLE" app:layout_constraintEnd_toEndOf="parent" android:layout_height="16dp"/>
+            android:id="@+id/movie_title_txt"
+            style="@style/MovieTextView"
+            android:text="@{item.title}"
+            android:textStyle="bold"
+            android:visibility="@{item.title != null ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/movie_img"
+            app:layout_constraintTop_toTopOf="@+id/movie_img"
+            tools:text="TITLE" />
 
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/movie_rating_border"
-                android:layout_width="102dp"
-                android:layout_height="12dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/border"
-                app:layout_constraintStart_toEndOf="@+id/movie_img"
-                app:layout_constraintTop_toBottomOf="@+id/movie_title_txt"/>
+            android:id="@+id/movie_rating_border"
+            android:layout_width="102dp"
+            android:layout_height="12dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/border"
+            app:layout_constraintStart_toEndOf="@+id/movie_img"
+            app:layout_constraintTop_toBottomOf="@+id/movie_title_txt" />
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/movie_rating_bar"
-                android:layout_marginLeft="1dp"
-                android:layout_height="10dp"
-                android:layout_width="0dp"
-                app:drawBar="@{item.userRating}"
-                app:layout_constraintStart_toStartOf="@+id/movie_rating_border"
-                app:layout_constraintBottom_toBottomOf="@+id/movie_rating_border"
-                app:layout_constraintTop_toTopOf="@+id/movie_rating_border"/>
+            android:id="@+id/movie_rating_bar"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_marginLeft="1dp"
+            app:drawBar="@{item.userRating}"
+            app:layout_constraintBottom_toBottomOf="@+id/movie_rating_border"
+            app:layout_constraintStart_toStartOf="@+id/movie_rating_border"
+            app:layout_constraintTop_toTopOf="@+id/movie_rating_border" />
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/movie_rating_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="8.33"
-                android:textSize="12sp"
-                android:layout_marginLeft="4dp"
-                android:gravity="center_vertical"
-                android:text="@{item.userRating.toString()}"
-                app:layout_constraintLeft_toRightOf="@+id/movie_rating_border"
-                app:layout_constraintTop_toTopOf="@+id/movie_rating_border"
-                app:layout_constraintBottom_toBottomOf="@+id/movie_rating_border"/>
+            android:id="@+id/movie_rating_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:gravity="center_vertical"
+            android:text="@{item.userRating.toString()}"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/movie_rating_border"
+            app:layout_constraintLeft_toRightOf="@+id/movie_rating_border"
+            app:layout_constraintTop_toTopOf="@+id/movie_rating_border"
+            tools:text="8.33" />
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/movie_year_txt"
-                style="@style/MovieTextView"
-                android:textStyle="italic"
-                android:text="@{item.pubDate}"
-                android:visibility="@{item.pubDate != null ? View.VISIBLE : View.GONE}"
-                tools:text="1991"
-                app:layout_constraintStart_toEndOf="@+id/movie_img"
-                app:layout_constraintTop_toBottomOf="@+id/movie_rating_border"
-                app:layout_constraintEnd_toEndOf="parent"/>
+            android:id="@+id/movie_year_txt"
+            style="@style/MovieTextView"
+            android:text="@{item.pubDate}"
+            android:textStyle="italic"
+            android:visibility="@{item.pubDate != null ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/movie_img"
+            app:layout_constraintTop_toBottomOf="@+id/movie_rating_border"
+            tools:text="1991" />
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/movie_director_txt"
-                style="@style/MovieTextView"
-                android:text="@{item.director}"
-                android:visibility="@{item.director != null ? View.VISIBLE : View.GONE}"
-                tools:text="director"
-                app:layout_constraintStart_toEndOf="@+id/movie_img"
-                app:layout_constraintTop_toBottomOf="@+id/movie_year_txt"
-                app:layout_constraintEnd_toEndOf="parent"/>
+            android:id="@+id/movie_director_txt"
+            style="@style/MovieTextView"
+            android:text="@{item.director}"
+            android:visibility="@{item.director != null ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/movie_img"
+            app:layout_constraintTop_toBottomOf="@+id/movie_year_txt"
+            tools:text="director" />
 
         <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/movie_actors_txt"
-                style="@style/MovieTextView"
-                android:layout_marginBottom="8dp"
-                android:layout_height="0dp"
-                android:text="@{item.actor}"
-                tools:text="actor"
-                android:visibility="@{item.actor != null ? View.VISIBLE : View.GONE}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/movie_img"
-                app:layout_constraintTop_toBottomOf="@+id/movie_director_txt"
-                app:layout_constraintEnd_toEndOf="parent"/>
+            android:id="@+id/movie_actors_txt"
+            style="@style/MovieTextView"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:text="@{item.actor}"
+            android:visibility="@{item.actor != null ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/movie_img"
+            app:layout_constraintTop_toBottomOf="@+id/movie_director_txt"
+            tools:text="actor" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
