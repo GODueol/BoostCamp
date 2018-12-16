@@ -32,13 +32,14 @@ class MovieSearchViewModel(private val rxBinder: RxBinder) {
     var isLast: Boolean = false
     var duplicationSet: MutableSet<String> = hashSetOf() // 중복처리를 위한 set
 
-    fun initItem(searchWord: String) {
-        // 전 검색어와 같다면 동작 x
+    fun resetItem(searchWord: String) {
+        // 전 검색어와 같다면 초기화 x
         if (searchWord == lastQuery) {
             return
         }
         isLast = false
         adapter.get()?.clear()
+        duplicationSet.clear()
         lastQuery = searchWord
     }
 
@@ -48,7 +49,7 @@ class MovieSearchViewModel(private val rxBinder: RxBinder) {
                     .filter { start <= 1 }
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe {
-                        initItem(searchWord)
+                        resetItem(searchWord)
                     }
         }
 
@@ -138,8 +139,8 @@ class MovieSearchViewModel(private val rxBinder: RxBinder) {
     var scrollPaging = object : OnScrollStateChanged {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
 
-            if (items.size >= 1000 || isLast) {
-                Toast.makeText(recyclerView.context, "더이상 검색결과를 볼 수 없습니다.", Toast.LENGTH_LONG).show()
+            if (items.size >= 1000 || (isLast && !recyclerView.canScrollVertically(1))) {
+                Toast.makeText(recyclerView.context, "더이상 검색결과가 없습니다.", Toast.LENGTH_LONG).show()
                 return
             }
 

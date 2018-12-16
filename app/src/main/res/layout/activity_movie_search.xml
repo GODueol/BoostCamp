@@ -25,8 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
             android:addTextChangedListener="@{vm.watcher}"
-            android:imeOptions="actionGo"
-            android:maxLines="1"
+            android:singleLine="true"
+            android:lines="1"
             app:layout_constraintEnd_toStartOf="@+id/search_btn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
